@@ -1,0 +1,26 @@
+{
+    "name": "diatem-net/jin-com",
+    "description": "Utility classes for transmission and webservices",
+    "type": "library",
+    "license": "GPLv3",
+    "authors": [
+        {
+            "name": "Loïc Gérard",
+            "email": "lgerard@diatem.net"
+        },
+        {
+            "name": "Samuel Marchal",
+            "email": "smarchal@diatem.net"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.4",
+        "php2wsdl/php2wsdl": "~0.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Jin2\\": "src/"
+        }
+    }
+}
