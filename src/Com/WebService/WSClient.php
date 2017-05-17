@@ -18,7 +18,7 @@ class WSClient
    *
    * @var object
    */
-  private $client;
+  protected $client;
 
   /**
    * Constructeur de la classe

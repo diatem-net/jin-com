@@ -12,13 +12,13 @@ use Jin2\Com\Curl;
 class RestCall
 {
 
-  private $secured = false;
-  private $publicKey;
-  private $privateKey;
-  private $url;
-  private $args = array();
-  private $method;
-  private $throwError = true;
+  protected $secured = false;
+  protected $publicKey;
+  protected $privateKey;
+  protected $url;
+  protected $args = array();
+  protected $method;
+  protected $throwError = true;
 
   public function __construct($url, $args = NULL, $method = Curl::CURL_REQUEST_TYPE_POST)
   {
@@ -75,7 +75,7 @@ class RestCall
     return Curl::getLastHttpCodeVerbose();
   }
 
-  private function getHMAC()
+  protected function getHMAC()
   {
     $toEncode = $this->url;
     $toEncode .= $this->method;
@@ -88,7 +88,7 @@ class RestCall
     return hash_hmac('sha256', $toEncode, $this->privateKey);
   }
 
-  private static function stringifyArrayValues($array)
+  protected static function stringifyArrayValues($array)
   {
     if (is_array($array)) {
       foreach($array AS $key => $value) {

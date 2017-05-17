@@ -20,21 +20,21 @@ class WsServer
    *
    * @var string
    */
-  private $classFile = null;
+  protected $classFile = null;
 
   /**
    * Url du fichier service php
    *
    * @var string
    */
-  private $endPoint = null;
+  protected $endPoint = null;
 
   /**
    * Nom de la classe utilisée comme WebService
    *
    * @var string
    */
-  private $className = null;
+  protected $className = null;
 
   /**
    * Constructeur
@@ -80,7 +80,7 @@ class WsServer
    *
    * @return mixed  Définition WSDL
    */
-  private function generateWsdl()
+  protected function generateWsdl()
   {
     error_reporting(0);
     set_error_handler(null);

@@ -16,13 +16,13 @@ class Curl
   /**
    * @var string  Dernière erreur rencontrée
    */
-  private static $lastErrorText = '';
+  protected static $lastErrorText = '';
 
   /**
    * @var int  Dernier code d'erreur rencontré
    */
-  private static $lastErrorCode = 0;
-  private static $lastCurlInfo;
+  protected static $lastErrorCode = 0;
+  protected static $lastCurlInfo;
 
   const CURL_REQUEST_TYPE_GET = 'GET';
   const CURL_REQUEST_TYPE_POST = 'POST';

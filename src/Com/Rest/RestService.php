@@ -20,13 +20,13 @@ class RestService
   public $_request = array();
   public $_requestJSon = array();
 
-  private $_method = "";
-  private $_code = 200;
-  private $securedRest = false;
-  private $securedKeys = array();
-  private $requestPublicKey;
-  private $requestSecure;
-  private $requestService;
+  protected $_method = "";
+  protected $_code = 200;
+  protected $securedRest = false;
+  protected $securedKeys = array();
+  protected $requestPublicKey;
+  protected $requestSecure;
+  protected $requestService;
 
   public function __construct()
   {
@@ -52,7 +52,7 @@ class RestService
     exit;
   }
 
-  private function get_status_message()
+  protected function get_status_message()
   {
     return Curl::getHttpCodeVerbose($this->_code);
   }
@@ -80,7 +80,7 @@ class RestService
     }
   }
 
-  private function verifyKeys($publicKey, $secureString)
+  protected function verifyKeys($publicKey, $secureString)
   {
     if(!isset($this->securedKeys[$publicKey])){
       return false;
@@ -89,7 +89,7 @@ class RestService
     return $this->compareHMAC($localHmac, $secureString);
   }
 
-  private function getToEncodeString($publicKey)
+  protected function getToEncodeString($publicKey)
   {
     $protocol = 'http';
     if (isset($_SERVER['HTTPS']) && $_SERVER["HTTPS"] == "on") {
@@ -102,7 +102,7 @@ class RestService
     return $toEncode;
   }
 
-  private function compareHMAC($a, $b)
+  protected function compareHMAC($a, $b)
   {
     if (!is_string($a) || !is_string($b)) {
       return false;
@@ -118,7 +118,7 @@ class RestService
     return $status === 0;
   }
 
-  private function inputs()
+  protected function inputs()
   {
     if (isset($_GET['publickey']) && isset($_GET['secure'])) {
       $this->requestPublicKey = $_GET['publickey'];
@@ -153,7 +153,7 @@ class RestService
     }
   }
 
-  private function cleanInputs($data)
+  protected function cleanInputs($data)
   {
     $cleaned = array();
     foreach($data as $key => $value){
@@ -162,13 +162,13 @@ class RestService
     return $cleaned;
   }
 
-  private function set_headers()
+  protected function set_headers()
   {
     header("HTTP/1.1 " . $this->_code . " " . $this->get_status_message());
     header("Content-Type:" . $this->_content_type);
   }
 
-  private static function stringifyArrayValues($array)
+  protected static function stringifyArrayValues($array)
   {
     if (is_array($array)) {
       foreach($array AS $key => $value) {
