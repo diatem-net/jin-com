@@ -119,8 +119,16 @@ class Curl
     // Post
     if ($requestType == self::CURL_REQUEST_TYPE_POST) {
       curl_setopt($curl, CURLOPT_POST, true);
-      curl_setopt($curl, CURLOPT_POSTFIELDS, $args);
+  
+      $field_string = http_build_query($args);
+      curl_setopt($curl, CURLOPT_POSTFIELDS, $field_string);
 
+      if (strpos($url, '?') === false && !empty($args)) {
+        $url .= '?' . http_build_query($args);
+      } else if (!empty($args)) {
+        $url .= '&' . http_build_query($args);
+      }
+      curl_setopt($curl, CURLOPT_URL, $url);
     }
     
     // Put
