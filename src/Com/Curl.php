@@ -118,17 +118,16 @@ class Curl
     
     // Post
     if ($requestType == self::CURL_REQUEST_TYPE_POST) {
-      curl_setopt($curl, CURLOPT_POST, true);
-  
-      $field_string = http_build_query($args);
-      curl_setopt($curl, CURLOPT_POSTFIELDS, $field_string);
 
-      if (strpos($url, '?') === false && !empty($args)) {
-        $url .= '?' . http_build_query($args);
-      } else if (!empty($args)) {
-        $url .= '&' . http_build_query($args);
+      foreach($args AS $k => $v){
+        if(is_array($v)){
+          $args[$k] = json_encode($v);
+        }
       }
+      
       curl_setopt($curl, CURLOPT_URL, $url);
+      curl_setopt($curl, CURLOPT_POST, 1);
+      curl_setopt($curl, CURLOPT_POSTFIELDS, $args);
     }
     
     // Put
