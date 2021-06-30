@@ -38,7 +38,7 @@ class RestCall
   }
   
   public function setBasicAuthentification($user, $password){
-    $this->headers['Authentification'] = 'Basic '.base64_encode($user.':'.$password);
+    $this->headers['Authorization'] = 'Basic '.base64_encode($user.':'.$password);
   }
 
   public function setErrorThrowed($etat)
