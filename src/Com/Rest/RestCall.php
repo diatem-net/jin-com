@@ -19,6 +19,7 @@ class RestCall
   protected $args = array();
   protected $method;
   protected $throwError = true;
+  protected $headers = array();
 
   public function __construct($url, $args = NULL, $method = Curl::CURL_REQUEST_TYPE_POST)
   {
@@ -34,6 +35,10 @@ class RestCall
     $this->secured = true;
     $this->publicKey = $publicKey;
     $this->privateKey = $privateKey;
+  }
+  
+  public function setBasicAuthentification($user, $password){
+    $this->headers['Authentification'] = 'Basic '.base64_encode($user.':'.$password);
   }
 
   public function setErrorThrowed($etat)
@@ -51,7 +56,7 @@ class RestCall
         $plus = '?secure='.$this->getHMAC().'&publickey='.$this->publicKey;
       }
     }
-    $results = Curl::call($this->url.$plus, $this->args, $this->method, $this->throwError);
+    $results = Curl::call($this->url.$plus, $this->args, $this->method, $this->throwError, null, null, null, $this->headers);
     return $results;
   }
 
